@@ -1,5 +1,10 @@
 import 'package:book_library/appColors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_switch/flutter_switch.dart';
+import 'package:get/get.dart';
+import 'package:get/state_manager.dart';
+
+import 'myController.dart';
 
 class BookInfoScreen extends StatelessWidget {
   final Map<String, dynamic> bookData;
@@ -7,6 +12,10 @@ class BookInfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(MyCobntroller());
+
+    final name = bookData['author_names'].toString();
+    final authorname = name.substring(1, name.length - 1);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Book Info"),
@@ -15,7 +24,7 @@ class BookInfoScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Container(
-            height: 400,
+            height: 450,
             width: 500,
             decoration: BoxDecoration(
                 border: Border.all(color: AppColors.primaryColor, width: 20),
@@ -55,9 +64,7 @@ class BookInfoScreen extends StatelessWidget {
                             fontWeight: FontWeight.w800,
                             color: AppColors.primaryColor),
                       ),
-                      Text(
-                        bookData['author_names'].toString(),
-                      )
+                      Text(authorname)
                     ],
                   ),
                   Row(
@@ -72,7 +79,29 @@ class BookInfoScreen extends StatelessWidget {
                       ),
                       Text(bookData['first_publish_year'].toString())
                     ],
-                  )
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Obx(
+                    () => FlutterSwitch(
+                        width: 70.0,
+                        height: 30.0,
+                        value: controller.readList.contains(bookData)
+                            ? true
+                            : false,
+                        activeColor: Colors.green,
+                        inactiveColor: Colors.transparent,
+                        inactiveToggleColor: Colors.grey,
+                        inactiveSwitchBorder: Border.all(color: Colors.red),
+                        showOnOff: true,
+                        activeText: 'Read',
+                        inactiveText: '',
+                        valueFontSize: 12,
+                        onToggle: (value) {
+                          controller.addToReadList(bookData);
+                        }),
+                  ),
                 ],
               ),
             ),
