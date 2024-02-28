@@ -113,9 +113,9 @@ class HomeScreen extends StatelessWidget {
                                           ),
                                           Text('${book['author_names']}',
                                               style: const TextStyle(
-                                                color: AppColors.primaryColor,
-                                                fontSize: 11,
-                                              )),
+                                                  color: AppColors.primaryColor,
+                                                  fontSize: 11,
+                                                  fontWeight: FontWeight.bold)),
                                           Text('${book['first_publish_year']}',
                                               style: const TextStyle(
                                                 color: Colors.grey,
