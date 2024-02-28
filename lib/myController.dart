@@ -14,6 +14,7 @@ class MyCobntroller extends GetxController {
   RxList searchList = [].obs;
 
   Future fetchData() async {
+    bookList.value = [];
     isLoading.value = true;
     var url = "https://openlibrary.org/people/mekBot/books/already-read.json";
     var response = await http.get(Uri.parse(url));
