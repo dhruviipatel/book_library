@@ -2,20 +2,16 @@ import 'dart:convert';
 
 import 'package:book_library/bookModel.dart';
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
 import 'package:get/state_manager.dart';
 import 'package:http/http.dart' as http;
 
 class MyCobntroller extends GetxController {
-  // @override
-  // void onInit() {
-  //   fetchData();
-  //   // TODO: implement onInit
-  //   super.onInit();
-  // }
-
+  RxBool obxcheck = false.obs;
   RxList readList = [].obs;
   RxList bookList = [].obs;
   RxBool isLoading = false.obs;
+  RxList searchList = [].obs;
 
   Future fetchData() async {
     isLoading.value = true;
@@ -36,6 +32,29 @@ class MyCobntroller extends GetxController {
       }
       bookList.addAll(resultList);
       isLoading.value = false;
+    }
+  }
+
+  getSearchData(String searchText) {
+    searchList.value = [];
+    if (searchText.isEmpty) {
+      searchList.value = [];
+    } else {
+      print(bookList);
+      searchList.value = bookList.value
+          .where((element) => element['title']
+              .toString()
+              .toLowerCase()
+              .startsWith(searchText.toLowerCase()))
+          .toList();
+    }
+  }
+
+  addToReadList(index) {
+    if (readList.contains(index)) {
+      readList.remove(index);
+    } else {
+      readList.add(index);
     }
   }
 }
