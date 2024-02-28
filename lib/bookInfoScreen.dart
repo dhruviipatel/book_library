@@ -9,7 +9,7 @@ class BookInfoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Book Info"),
+        title: const Text("Book Info"),
       ),
       body: Center(
         child: Padding(
@@ -19,13 +19,10 @@ class BookInfoScreen extends StatelessWidget {
             width: 500,
             decoration: BoxDecoration(
                 border: Border.all(color: AppColors.primaryColor, width: 20),
-                //color: AppColors.primaryColor,
                 borderRadius: BorderRadius.circular(20)),
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
-                // crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.network(
                     "https://covers.openlibrary.org/b/id/${bookData['cover_id']}-M.jpg",
@@ -59,7 +56,7 @@ class BookInfoScreen extends StatelessWidget {
                             color: AppColors.primaryColor),
                       ),
                       Text(
-                        bookData['author_names'].toString() ?? 'Not Available',
+                        bookData['author_names'].toString(),
                       )
                     ],
                   ),
@@ -73,8 +70,7 @@ class BookInfoScreen extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             color: AppColors.primaryColor),
                       ),
-                      Text(bookData['first_publish_year'].toString() ??
-                          'Not Available')
+                      Text(bookData['first_publish_year'].toString())
                     ],
                   )
                 ],

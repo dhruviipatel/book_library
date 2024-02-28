@@ -15,12 +15,7 @@ class HomeScreen extends StatelessWidget {
     var searchContoller = TextEditingController();
 
     return Obx(
-      () =>
-          // controller.obxcheck.value == true
-          //     ? Container()
-          //     :
-          Scaffold(
-        // backgroundColor: AppColors.primaryColor,
+      () => Scaffold(
         appBar: AppBar(
           title: const Text("Book Library"),
           actions: [
@@ -44,7 +39,8 @@ class HomeScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
                   decoration: BoxDecoration(
@@ -103,23 +99,30 @@ class HomeScreen extends StatelessWidget {
                             ),
                           );
                         })
-                    : Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10),
-                            child: Row(
-                              children: [
-                                Text(
-                                  "Book Collections",
-                                  style: TextStyle(fontSize: 20),
+                    : controller.bookList.isEmpty
+                        ? Container(
+                            height: 600,
+                            child: const Center(
+                                child: CircularProgressIndicator(
+                              color: AppColors.primaryColor,
+                            )),
+                          )
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 10),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      "Book Collections",
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          ),
-                          controller.bookList.isEmpty
-                              ? const Center(child: CircularProgressIndicator())
-                              : GridView.builder(
+                              ),
+                              GridView.builder(
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
                                   gridDelegate:
@@ -177,7 +180,7 @@ class HomeScreen extends StatelessWidget {
                                                   height: 5,
                                                 ),
                                                 Text(
-                                                  '${mybookname}',
+                                                  '$mybookname',
                                                   style: const TextStyle(
                                                       fontSize: 13,
                                                       fontWeight:
@@ -215,46 +218,42 @@ class HomeScreen extends StatelessWidget {
                                           const SizedBox(
                                             height: 5,
                                           ),
-                                          Container(
-                                            child: Row(
-                                              children: [
-                                                Obx(
-                                                  () => FlutterSwitch(
-                                                      width: 50.0,
-                                                      height: 20.0,
-                                                      value: controller.readList
-                                                              .contains(book)
-                                                          ? true
-                                                          : false,
-                                                      activeColor: Colors.green,
-                                                      inactiveColor:
-                                                          Colors.transparent,
-                                                      inactiveToggleColor:
-                                                          Colors.grey,
-                                                      inactiveSwitchBorder:
-                                                          Border.all(
-                                                              color:
-                                                                  Colors.red),
-                                                      showOnOff: true,
-                                                      activeText: 'Read',
-                                                      inactiveText: '',
-                                                      valueFontSize: 8,
-                                                      onToggle: (value) {
-                                                        controller
-                                                            .addToReadList(
-                                                                book);
-                                                      }),
-                                                ),
-                                                Expanded(child: Container())
-                                              ],
-                                            ),
-                                          )
+                                          Row(
+                                            children: [
+                                              Obx(
+                                                () => FlutterSwitch(
+                                                    width: 50.0,
+                                                    height: 20.0,
+                                                    value: controller.readList
+                                                            .contains(book)
+                                                        ? true
+                                                        : false,
+                                                    activeColor: Colors.green,
+                                                    inactiveColor:
+                                                        Colors.transparent,
+                                                    inactiveToggleColor:
+                                                        Colors.grey,
+                                                    inactiveSwitchBorder:
+                                                        Border.all(
+                                                            color: Colors.red),
+                                                    showOnOff: true,
+                                                    activeText: 'Read',
+                                                    inactiveText: '',
+                                                    valueFontSize: 8,
+                                                    onToggle: (value) {
+                                                      controller
+                                                          .addToReadList(book);
+                                                    }),
+                                              ),
+                                              Expanded(child: Container())
+                                            ],
+                                          ),
                                         ],
                                       ),
                                     );
                                   })
-                        ],
-                      ),
+                            ],
+                          ),
               ],
             ),
           ),

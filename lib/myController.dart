@@ -1,8 +1,5 @@
 import 'dart:convert';
-
-import 'package:book_library/bookModel.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 import 'package:get/state_manager.dart';
 import 'package:http/http.dart' as http;
 
@@ -28,7 +25,6 @@ class MyCobntroller extends GetxController {
       for (var item in data) {
         if (item != null && item is Map<String, dynamic>) {
           resultList.add(item['work']);
-          print(resultList);
         }
       }
       bookList.addAll(resultList);
@@ -41,7 +37,6 @@ class MyCobntroller extends GetxController {
     if (searchText.isEmpty) {
       searchList.value = [];
     } else {
-      print(bookList);
       searchList.value = bookList.value
           .where((element) => element['title']
               .toString()

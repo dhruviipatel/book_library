@@ -26,7 +26,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// The DismissKeybaord widget (it's reusable)
 class DismissKeyboard extends StatelessWidget {
   final Widget child;
   const DismissKeyboard({super.key, required this.child});
